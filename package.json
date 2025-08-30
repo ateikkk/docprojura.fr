@@ -6,7 +6,7 @@
   "homepage": "https://ateikkk.github.io/docprojura.fr",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "VITE_APP_BASE_URL=/docprojura.fr/ vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
