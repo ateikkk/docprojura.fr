@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ateikkk.github.io/docprojura.fr",
   "scripts": {
     "dev": "vite",
     "build": "VITE_APP_BASE_URL=/docprojura.fr/ vite build",
