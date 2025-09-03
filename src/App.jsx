@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Mail, MessageCircle, FileText, Linkedin, CheckCircle } from 'lucide-react'
-import adminImage from './assets/ipad_with_clear_button.png'
+import adminImage from './assets/ipad_with_illustration.png'
 import './App.css'
 
 function App() {
@@ -48,27 +48,10 @@ function App() {
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Mail className="mr-2 h-5 w-5" />
-              Me contacter par email
-            </Button>
-            <Button 
-              onClick={handleWhatsAppClick}
-              size="lg" 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              WhatsApp
-            </Button>
-            <Button 
-              onClick={handleLinkedInClick}
-              size="lg" 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-            >
-              <Linkedin className="mr-2 h-5 w-5" />
-              LinkedIn
+              Me contacter
             </Button>
           </div>
+
         </div>
       </section>
 
@@ -90,7 +73,7 @@ function App() {
                   <img 
                     src={adminImage} 
                     alt="Aide administrative" 
-                    className="w-full h-48 object-cover rounded-lg mb-4 cursor-pointer" onClick={() => window.location.href = '#contact'}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
                   />
                 </CardDescription>
               </CardHeader>
