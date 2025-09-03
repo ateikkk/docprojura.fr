@@ -41,15 +41,16 @@ function App() {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Ce site, c’est ma façon de me faire connaître, de proposer mes services et d’apprendre des besoins des autres. Mon objectif est simple : progresser chaque jour tout en aidant les gens autour de moi, que ce soit dans l’automobile, l’administratif, la recherche de solutions pratiques (CV, lettres de motivation, assurances, offres en ligne, etc.) — et je reste ouvert à d’autres demandes.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={handleEmailClick}
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              <Mail className="mr-2 h-5 w-5" />
-              Me contacter
-            </Button>
+          <div className="relative mb-8">
+            <img 
+              src={adminImage} 
+              alt="Saleh avec iPad" 
+              className="w-full max-w-md mx-auto rounded-lg shadow-lg cursor-pointer" 
+              onClick={() => window.location.href = '#contact'}
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500 text-4xl font-bold pointer-events-none">
+              Contactez
+            </div>
           </div>
 
         </div>
