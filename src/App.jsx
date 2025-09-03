@@ -36,10 +36,10 @@ function App() {
       <section id="accueil" className="py-20 px-6 bg-gradient-to-br from-primary/5 to-accent/5">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-primary mb-6">
-            DocProJura – Simplifiez vos démarches administratives
+            Je suis Saleh. J’aime évoluer, partager et rendre service. Bienvenue sur mon espace.
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            "Gagnez du temps et évitez les erreurs dans vos papiers."
+            Ce site, c’est ma façon de me faire connaître, de proposer mes services et d’apprendre des besoins des autres. Mon objectif est simple : progresser chaque jour tout en aidant les gens autour de moi, que ce soit dans l’automobile, l’administratif, la recherche de solutions pratiques (CV, lettres de motivation, assurances, offres en ligne, etc.) — et je reste ouvert à d’autres demandes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
