@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Mail, MessageCircle, FileText, Linkedin, CheckCircle } from 'lucide-react'
-import adminImage from './assets/admin_image.png'
+import adminImage from './assets/ipad_with_clear_button.png'
 import './App.css'
 
 function App() {
@@ -90,7 +90,7 @@ function App() {
                   <img 
                     src={adminImage} 
                     alt="Aide administrative" 
-                    className="w-full h-48 object-cover rounded-lg mb-4"
+                    className="w-full h-48 object-cover rounded-lg mb-4 cursor-pointer" onClick={() => window.location.href = '#contact'}
                   />
                 </CardDescription>
               </CardHeader>
