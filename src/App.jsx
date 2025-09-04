@@ -104,6 +104,7 @@ const ServiceCard = ({ icon: Icon, title, description, features, delay = 0 }) =>
           cursor: 'pointer',
           backdropFilter: 'blur(20px)'
         }}
+        className="card-ultra crystal-effect gpu-accelerated"
       >
         {/* Effet de suivi de souris */}
         <motion.div
@@ -316,7 +317,7 @@ function App() {
       
       {/* Header avec effet de transparence au scroll */}
       <motion.header 
-        className="header"
+        className="header morphing-background crystal-effect gpu-accelerated"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -328,7 +329,51 @@ function App() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            DocProJura
+            <motion.div
+              className="logo-container"
+              whileHover={{ 
+                scale: 1.1,
+                rotate: [0, -5, 5, 0],
+                transition: { duration: 0.6 }
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <motion.div
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Sparkles size={28} style={{ color: '#FFD700' }} />
+              </motion.div>
+              <motion.span
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: '700',
+                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B6B 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                S
+              </motion.span>
+            </motion.div>
           </motion.a>
           <nav className="nav">
             {['Accueil', 'Services', 'À propos', 'Contact'].map((item, index) => (
@@ -349,11 +394,11 @@ function App() {
       </motion.header>
 
       {/* Hero Section avec parallaxe */}
-      <section id="accueil" className="hero">
+      <section id="accueil" className="hero hero-ultra gpu-accelerated page-transition">
         <div className="container">
           <motion.div style={{ y: y1 }}>
             <FadeInUp>
-              <h1 className="hero-title">
+              <h1 className="hero-title holographic-text" data-text="Je suis Saleh. J'aime évoluer, partager et rendre service.">
                 Je suis Saleh. J'aime évoluer, partager et rendre service. 
                 <motion.span
                   className="hero-highlight"
@@ -409,7 +454,7 @@ function App() {
           <FadeInUp delay={0.6}>
             <motion.button 
               onClick={handleEmailClick} 
-              className="btn btn-primary btn-large"
+              className="btn btn-primary btn-large btn-quantum neon-glow gpu-accelerated"
               whileHover={{ 
                 scale: 1.05,
                 boxShadow: '0 15px 35px rgba(44, 62, 80, 0.2)'

@@ -979,3 +979,389 @@ h3 {
   }
 }
 
+
+
+/* Styles ultra-avancés pour maximiser le professionnalisme */
+
+/* Effets de morphing et transitions fluides */
+.morphing-background {
+  background: linear-gradient(-45deg, #0056B3, #007BFF, #0056B3, #003d82);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Effets de néon et glow avancés */
+.neon-glow {
+  box-shadow: 
+    0 0 5px rgba(0, 123, 255, 0.5),
+    0 0 10px rgba(0, 123, 255, 0.4),
+    0 0 15px rgba(0, 123, 255, 0.3),
+    0 0 20px rgba(0, 123, 255, 0.2);
+  animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+  from {
+    box-shadow: 
+      0 0 5px rgba(0, 123, 255, 0.5),
+      0 0 10px rgba(0, 123, 255, 0.4),
+      0 0 15px rgba(0, 123, 255, 0.3),
+      0 0 20px rgba(0, 123, 255, 0.2);
+  }
+  to {
+    box-shadow: 
+      0 0 10px rgba(0, 123, 255, 0.8),
+      0 0 20px rgba(0, 123, 255, 0.6),
+      0 0 30px rgba(0, 123, 255, 0.4),
+      0 0 40px rgba(0, 123, 255, 0.2);
+  }
+}
+
+/* Effets de cristal et réfraction */
+.crystal-effect {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(0, 123, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.05) 75%,
+    rgba(255, 255, 255, 0.1) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.crystal-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.1) 45deg,
+    transparent 90deg,
+    rgba(0, 123, 255, 0.1) 135deg,
+    transparent 180deg,
+    rgba(255, 255, 255, 0.1) 225deg,
+    transparent 270deg,
+    rgba(0, 123, 255, 0.1) 315deg,
+    transparent 360deg
+  );
+  animation: crystalRotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes crystalRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Effets de particules avancées */
+.advanced-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle-advanced {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #007BFF, transparent);
+  border-radius: 50%;
+  animation: particleFloat 15s linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Effets de texte holographique */
+.holographic-text {
+  background: linear-gradient(
+    45deg,
+    #007BFF 0%,
+    #00D4FF 25%,
+    #007BFF 50%,
+    #0056B3 75%,
+    #007BFF 100%
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holographicShimmer 3s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes holographicShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.holographic-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(0, 123, 255, 0.3) 50%,
+    transparent 70%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holographicScan 2s linear infinite;
+}
+
+@keyframes holographicScan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Effets de boutons ultra-avancés */
+.btn-quantum {
+  position: relative;
+  background: linear-gradient(135deg, #0056B3 0%, #007BFF 100%);
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-quantum::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-quantum:hover::before {
+  left: 100%;
+}
+
+.btn-quantum::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn-quantum:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-quantum:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 10px 30px rgba(0, 86, 179, 0.3),
+    0 0 20px rgba(0, 123, 255, 0.2);
+}
+
+/* Effets de cartes ultra-sophistiquées */
+.card-ultra {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-ultra::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 123, 255, 0.8), 
+    transparent
+  );
+  animation: borderScan 3s linear infinite;
+}
+
+@keyframes borderScan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.card-ultra:hover {
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 
+    0 25px 50px rgba(0, 86, 179, 0.2),
+    0 0 30px rgba(0, 123, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Effets de navigation futuriste */
+.nav-futuristic {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.nav-futuristic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(0, 123, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-futuristic:hover::before {
+  opacity: 1;
+}
+
+.nav-futuristic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+}
+
+/* Effets de section hero ultra-moderne */
+.hero-ultra {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(248, 249, 250, 0.9) 0%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(233, 236, 239, 0.9) 100%
+  );
+  overflow: hidden;
+}
+
+.hero-ultra::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 123, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0, 86, 179, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(0, 123, 255, 0.01) 0%, transparent 50%);
+  animation: heroAmbient 20s ease-in-out infinite;
+}
+
+@keyframes heroAmbient {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Responsive ultra-optimisé */
+@media (max-width: 768px) {
+  .crystal-effect::before {
+    animation-duration: 30s;
+  }
+  
+  .btn-quantum {
+    padding: 0.875rem 1.75rem;
+  }
+  
+  .card-ultra:hover {
+    transform: translateY(-5px);
+  }
+  
+  .holographic-text {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .neon-glow {
+    animation-duration: 3s;
+  }
+  
+  .particle-advanced {
+    animation-duration: 20s;
+  }
+  
+  .hero-ultra::before {
+    animation-duration: 25s;
+  }
+}
+
+/* Effets de performance GPU */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Effets de transition de page */
+.page-transition {
+  animation: pageSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
