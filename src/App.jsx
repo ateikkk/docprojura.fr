@@ -1,8 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react'
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValue } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Mail, MessageCircle, Linkedin, CheckCircle, FileText, Phone, MapPin, ArrowRight, Star, Shield, Clock, Users } from 'lucide-react'
+import { Mail, MessageCircle, Linkedin, CheckCircle, FileText, Phone, MapPin, ArrowRight, Star, Shield, Clock, Users, Sparkles } from 'lucide-react'
 import './App.css'
+
+// Composant pour les particules flottantes
+const FloatingParticles = () => {
+  const particles = Array.from({ length: 6 }, (_, i) => i)
+  
+  return (
+    <div className="floating-particles">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle}
+          className="particle"
+          initial={{ 
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            opacity: 0
+          }}
+          animate={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            opacity: [0, 0.6, 0]
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            position: 'fixed',
+            width: '4px',
+            height: '4px',
+            background: 'linear-gradient(45deg, #007BFF, #0056B3)',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+      ))}
+    </div>
+  )
+}
 
 // Composant pour les animations d'apparition
 const FadeInUp = ({ children, delay = 0 }) => {
@@ -23,61 +63,115 @@ const FadeInUp = ({ children, delay = 0 }) => {
   )
 }
 
-// Composant pour les cartes avec effet hover avancé
+// Composant pour les cartes avec effet hover avancé et micro-interactions
 const ServiceCard = ({ icon: Icon, title, description, features, delay = 0 }) => {
   const [isHovered, setIsHovered] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const cardRef = useRef(null)
+
+  const handleMouseMove = (e) => {
+    if (cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect()
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      })
+    }
+  }
 
   return (
     <FadeInUp delay={delay}>
       <motion.div
+        ref={cardRef}
         className="service-card"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onMouseMove={handleMouseMove}
         whileHover={{ 
-          y: -8,
-          transition: { duration: 0.3, ease: "easeOut" }
+          y: -12,
+          transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
         }}
         style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-          borderRadius: '20px',
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
+          borderRadius: '24px',
           padding: '2.5rem',
           boxShadow: isHovered 
-            ? '0 25px 50px rgba(44, 62, 80, 0.15)' 
-            : '0 10px 30px rgba(44, 62, 80, 0.08)',
-          border: '1px solid rgba(189, 195, 199, 0.2)',
+            ? '0 32px 64px rgba(0, 86, 179, 0.15)' 
+            : '0 12px 32px rgba(0, 0, 0, 0.08)',
+          border: '1px solid rgba(222, 226, 230, 0.3)',
           position: 'relative',
           overflow: 'hidden',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          backdropFilter: 'blur(20px)'
         }}
       >
+        {/* Effet de suivi de souris */}
+        <motion.div
+          className="mouse-follower"
+          animate={isHovered ? {
+            x: mousePosition.x - 50,
+            y: mousePosition.y - 50,
+            opacity: 0.1
+          } : { opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          style={{
+            position: 'absolute',
+            width: '100px',
+            height: '100px',
+            background: 'radial-gradient(circle, var(--accent), transparent)',
+            borderRadius: '50%',
+            pointerEvents: 'none'
+          }}
+        />
+
         {/* Effet de brillance au hover */}
         <motion.div
           className="card-shine"
           initial={{ x: '-100%', opacity: 0 }}
           animate={isHovered ? { x: '100%', opacity: 1 } : { x: '-100%', opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent)',
+            background: 'linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.1), transparent)',
             pointerEvents: 'none'
           }}
         />
 
         <div className="card-header">
           <motion.div
-            animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+            animate={isHovered ? { 
+              scale: 1.15, 
+              rotate: 8,
+              filter: 'drop-shadow(0 4px 8px rgba(0, 123, 255, 0.3))'
+            } : { 
+              scale: 1, 
+              rotate: 0,
+              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <Icon className="card-icon" size={48} />
+          </motion.div>
+          <motion.h3 
+            className="card-title"
+            animate={isHovered ? { x: 5 } : { x: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <Icon className="card-icon" size={40} />
-          </motion.div>
-          <h3 className="card-title">{title}</h3>
+            {title}
+          </motion.h3>
         </div>
         
-        <p className="card-description">{description}</p>
+        <motion.p 
+          className="card-description"
+          animate={isHovered ? { opacity: 0.9 } : { opacity: 0.7 }}
+          transition={{ duration: 0.3 }}
+        >
+          {description}
+        </motion.p>
         
         <ul className="service-list">
           {features.map((feature, index) => (
@@ -85,10 +179,23 @@ const ServiceCard = ({ icon: Icon, title, description, features, delay = 0 }) =>
               key={index}
               className="service-item"
               initial={{ opacity: 0, x: -20 }}
-              animate={isHovered ? { opacity: 1, x: 0 } : { opacity: 0.8, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              animate={isHovered ? { 
+                opacity: 1, 
+                x: 0,
+                transition: { delay: index * 0.1 }
+              } : { 
+                opacity: 0.8, 
+                x: 0 
+              }}
+              transition={{ duration: 0.3 }}
+              whileHover={{ x: 5, color: 'var(--accent)' }}
             >
-              <CheckCircle className="service-icon" size={16} />
+              <motion.div
+                animate={isHovered ? { scale: 1.1, rotate: 360 } : { scale: 1, rotate: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <CheckCircle className="service-icon" size={16} />
+              </motion.div>
               <span>{feature}</span>
             </motion.li>
           ))}
@@ -96,16 +203,47 @@ const ServiceCard = ({ icon: Icon, title, description, features, delay = 0 }) =>
 
         <motion.div
           className="card-arrow"
-          animate={isHovered ? { x: 5, opacity: 1 } : { x: 0, opacity: 0.5 }}
+          animate={isHovered ? { 
+            x: 8, 
+            opacity: 1,
+            scale: 1.1
+          } : { 
+            x: 0, 
+            opacity: 0.5,
+            scale: 1
+          }}
           transition={{ duration: 0.3 }}
           style={{
             position: 'absolute',
             bottom: '1.5rem',
             right: '1.5rem',
+            color: 'var(--accent)',
+            filter: 'drop-shadow(0 2px 4px rgba(0, 123, 255, 0.2))'
+          }}
+        >
+          <ArrowRight size={24} />
+        </motion.div>
+
+        {/* Icône sparkles pour l'effet premium */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isHovered ? { 
+            opacity: 1, 
+            scale: 1,
+            rotate: [0, 180, 360]
+          } : { 
+            opacity: 0, 
+            scale: 0 
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
             color: 'var(--accent)'
           }}
         >
-          <ArrowRight size={20} />
+          <Sparkles size={20} />
         </motion.div>
       </motion.div>
     </FadeInUp>
@@ -174,6 +312,8 @@ function App() {
 
   return (
     <div className="min-h-screen">
+      <FloatingParticles />
+      
       {/* Header avec effet de transparence au scroll */}
       <motion.header 
         className="header"
@@ -244,8 +384,8 @@ function App() {
                 transition={{ duration: 0.3 }}
               >
                 <img 
-                  src="/src/assets/IMG_3061.png" 
-                  alt="Saleh avec iPad"
+                  src="/src/assets/H97gqeWRJ2kJ.jpg" 
+                  alt="Bureau professionnel moderne"
                   className="hero-image"
                 />
                 <motion.button
