@@ -1,607 +1,89 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValue } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Mail, MessageCircle, Linkedin, CheckCircle, FileText, Phone, MapPin, ArrowRight, Star, Shield, Clock, Users, Sparkles } from 'lucide-react'
-import './App.css'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { MessageCircle } from 'lucide-react';
+import './App.css';
 
-// Composant pour les particules flottantes
-const FloatingParticles = () => {
-  const particles = Array.from({ length: 6 }, (_, i) => i)
-  
-  return (
-    <div className="floating-particles">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle}
-          className="particle"
-          initial={{ 
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            opacity: 0
-          }}
-          animate={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            opacity: [0, 0.6, 0]
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{
-            position: 'fixed',
-            width: '4px',
-            height: '4px',
-            background: 'linear-gradient(45deg, #007BFF, #0056B3)',
-            borderRadius: '50%',
-            pointerEvents: 'none',
-            zIndex: 1
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-// Composant pour les animations d'apparition
-const FadeInUp = ({ children, delay = 0 }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Composant pour les cartes avec effet hover avancé et micro-interactions
-const ServiceCard = ({ icon: Icon, title, description, features, delay = 0 }) => {
-  const [isHovered, setIsHovered] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const cardRef = useRef(null)
-
-  const handleMouseMove = (e) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect()
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      })
-    }
-  }
-
-  return (
-    <FadeInUp delay={delay}>
-      <motion.div
-        ref={cardRef}
-        className="service-card"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onMouseMove={handleMouseMove}
-        whileHover={{ 
-          y: -12,
-          transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
-        }}
-        style={{
-          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
-          borderRadius: '24px',
-          padding: '2.5rem',
-          boxShadow: isHovered 
-            ? '0 32px 64px rgba(0, 86, 179, 0.15)' 
-            : '0 12px 32px rgba(0, 0, 0, 0.08)',
-          border: '1px solid rgba(222, 226, 230, 0.3)',
-          position: 'relative',
-          overflow: 'hidden',
-          cursor: 'pointer',
-          backdropFilter: 'blur(20px)'
-        }}
-        className="card-ultra crystal-effect gpu-accelerated"
-      >
-        {/* Effet de suivi de souris */}
-        <motion.div
-          className="mouse-follower"
-          animate={isHovered ? {
-            x: mousePosition.x - 50,
-            y: mousePosition.y - 50,
-            opacity: 0.1
-          } : { opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          style={{
-            position: 'absolute',
-            width: '100px',
-            height: '100px',
-            background: 'radial-gradient(circle, var(--accent), transparent)',
-            borderRadius: '50%',
-            pointerEvents: 'none'
-          }}
-        />
-
-        {/* Effet de brillance au hover */}
-        <motion.div
-          className="card-shine"
-          initial={{ x: '-100%', opacity: 0 }}
-          animate={isHovered ? { x: '100%', opacity: 1 } : { x: '-100%', opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.1), transparent)',
-            pointerEvents: 'none'
-          }}
-        />
-
-        <div className="card-header">
-          <motion.div
-            animate={isHovered ? { 
-              scale: 1.15, 
-              rotate: 8,
-              filter: 'drop-shadow(0 4px 8px rgba(0, 123, 255, 0.3))'
-            } : { 
-              scale: 1, 
-              rotate: 0,
-              filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
-            }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <Icon className="card-icon" size={48} />
-          </motion.div>
-          <motion.h3 
-            className="card-title"
-            animate={isHovered ? { x: 5 } : { x: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {title}
-          </motion.h3>
-        </div>
-        
-        <motion.p 
-          className="card-description"
-          animate={isHovered ? { opacity: 0.9 } : { opacity: 0.7 }}
-          transition={{ duration: 0.3 }}
-        >
-          {description}
-        </motion.p>
-        
-        <ul className="service-list">
-          {features.map((feature, index) => (
-            <motion.li
-              key={index}
-              className="service-item"
-              initial={{ opacity: 0, x: -20 }}
-              animate={isHovered ? { 
-                opacity: 1, 
-                x: 0,
-                transition: { delay: index * 0.1 }
-              } : { 
-                opacity: 0.8, 
-                x: 0 
-              }}
-              transition={{ duration: 0.3 }}
-              whileHover={{ x: 5, color: 'var(--accent)' }}
-            >
-              <motion.div
-                animate={isHovered ? { scale: 1.1, rotate: 360 } : { scale: 1, rotate: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <CheckCircle className="service-icon" size={16} />
-              </motion.div>
-              <span>{feature}</span>
-            </motion.li>
-          ))}
-        </ul>
-
-        <motion.div
-          className="card-arrow"
-          animate={isHovered ? { 
-            x: 8, 
-            opacity: 1,
-            scale: 1.1
-          } : { 
-            x: 0, 
-            opacity: 0.5,
-            scale: 1
-          }}
-          transition={{ duration: 0.3 }}
-          style={{
-            position: 'absolute',
-            bottom: '1.5rem',
-            right: '1.5rem',
-            color: 'var(--accent)',
-            filter: 'drop-shadow(0 2px 4px rgba(0, 123, 255, 0.2))'
-          }}
-        >
-          <ArrowRight size={24} />
-        </motion.div>
-
-        {/* Icône sparkles pour l'effet premium */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isHovered ? { 
-            opacity: 1, 
-            scale: 1,
-            rotate: [0, 180, 360]
-          } : { 
-            opacity: 0, 
-            scale: 0 
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            color: 'var(--accent)'
-          }}
-        >
-          <Sparkles size={20} />
-        </motion.div>
-      </motion.div>
-    </FadeInUp>
-  )
-}
-
-// Composant pour les cartes de contact avec animations
-const ContactCard = ({ icon: Icon, title, info, subtitle, onClick, delay = 0 }) => {
-  return (
-    <FadeInUp delay={delay}>
-      <motion.div
-        className="contact-card"
-        onClick={onClick}
-        whileHover={{ 
-          scale: 1.05,
-          y: -5,
-          transition: { duration: 0.3, ease: "easeOut" }
-        }}
-        whileTap={{ scale: 0.98 }}
-        style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-          borderRadius: '16px',
-          padding: '2rem',
-          textAlign: 'center',
-          cursor: 'pointer',
-          border: '1px solid rgba(189, 195, 199, 0.2)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <motion.div
-          whileHover={{ scale: 1.2, rotate: 10 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Icon className="contact-icon" size={48} />
-        </motion.div>
-        <h3 className="contact-title">{title}</h3>
-        <p className="contact-info">{info}</p>
-        <p className="text-muted mt-2">{subtitle}</p>
-      </motion.div>
-    </FadeInUp>
-  )
-}
-
-// Composant principal
 function App() {
-  const { scrollY } = useScroll()
-  const y1 = useTransform(scrollY, [0, 300], [0, -50])
-  const y2 = useTransform(scrollY, [0, 300], [0, -25])
-
-  const handleEmailClick = () => {
-    window.location.href = 'mailto:salehateikk@gmail.com'
-  }
-
+  // Fonction pour gérer le clic sur WhatsApp
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/33602277181', '_blank')
-  }
+    window.open('https://wa.me/33602277181', '_blank');
+  };
 
+  // Fonction pour gérer le clic sur LinkedIn
   const handleLinkedInClick = () => {
-    window.open('https://www.linkedin.com/in/saleh-ateik', '_blank')
-  }
-
-  const scrollToContact = () => {
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })
-  }
+    window.open('https://www.linkedin.com/in/saleh-ateik', '_blank');
+  };
 
   return (
-    <div className="min-h-screen">
-      <FloatingParticles />
-      
-      {/* Header avec effet de transparence au scroll */}
-      <motion.header 
-        className="header morphing-background crystal-effect gpu-accelerated"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <div className="container header-content">
-          <motion.a 
-            href="#accueil" 
-            className="logo"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+    <div className="canva-page">
+      {/* Reproduction exacte de la page Canva */}
+      <div className="canva-container">
+        {/* Section texte à gauche */}
+        <div className="canva-text-section">
+          <motion.h1 
+            className="canva-title"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div
-              className="logo-container"
-              whileHover={{ 
-                scale: 1.1,
-                rotate: [0, -5, 5, 0],
-                transition: { duration: 0.6 }
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 1rem',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <motion.div
-                animate={{ 
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Sparkles size={28} style={{ color: '#FFD700' }} />
-              </motion.div>
-              <motion.span
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: '700',
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B6B 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  letterSpacing: '0.05em'
-                }}
-              >
-                S
-              </motion.span>
-            </motion.div>
-          </motion.a>
-          <nav className="nav">
-            {['Accueil', 'Services', 'À propos', 'Contact'].map((item, index) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase().replace('à ', '').replace(' ', '')}`}
-                className="nav-link"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, color: 'var(--accent)' }}
-              >
-                {item}
-              </motion.a>
-            ))}
-          </nav>
-        </div>
-      </motion.header>
-
-      {/* Hero Section avec parallaxe */}
-      <section id="accueil" className="hero hero-ultra gpu-accelerated page-transition">
-        <div className="container">
-          <motion.div style={{ y: y1 }}>
-            <FadeInUp>
-              <h1 className="hero-title holographic-text" data-text="Besoin d'aide ? Je rends les choses simples et efficaces !">
-                Besoin d'aide ? Je rends les choses simples et efficaces !
-              </h1>
-            </FadeInUp>
+            Besoin d'aide ? Je rends les choses simples et efficaces !
+          </motion.h1>
+          
+          <motion.div 
+            className="canva-description"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <p>Je m'appelle Saleh. J'aime apprendre, évoluer et partager.</p>
+            <p>Que ce soit pour vos démarches, vos projets ou vos questions pratiques, je suis là pour vous accompagner en toute simplicité.</p>
           </motion.div>
+        </div>
 
-          <motion.div style={{ y: y2 }}>
-            <FadeInUp delay={0.2}>
-              <p className="hero-subtitle">
-                Je m'appelle Saleh. J'aime apprendre, évoluer et partager. Que ce soit pour vos démarches, vos projets ou vos questions pratiques, je suis là pour vous accompagner en toute simplicité.
-              </p>
-            </FadeInUp>
-          </motion.div>
-
-          {/* Image avec effet parallaxe et bouton superposé */}
-          <FadeInUp delay={0.4}>
-            <div className="hero-image-container">
-              <motion.div
-                className="hero-image-wrapper"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
+        {/* Section image à droite */}
+        <div className="canva-image-section">
+          <motion.div 
+            className="canva-person-container"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <img 
+              src="/src/assets/saleh_canva_full_image.png" 
+              alt="Saleh avec iPad"
+              className="canva-person-image"
+            />
+            
+            {/* Icônes LinkedIn et WhatsApp sur l'iPad */}
+            <div className="canva-ipad-icons">
+              <motion.button
+                className="canva-linkedin-icon"
+                onClick={handleLinkedInClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <img 
-                  src="/src/assets/saleh_canva_image.png" 
-                  alt="Saleh - Votre assistant personnel"
-                  className="hero-image"
-                />
-                <motion.button
-                  className="contact-overlay-btn"
-                  onClick={scrollToContact}
-                  whileHover={{ 
-                    scale: 1.1,
-                    boxShadow: '0 10px 25px rgba(231, 76, 60, 0.3)'
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                  Contactez
-                </motion.button>
-              </motion.div>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#0077B5">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </motion.button>
+              
+              <motion.button
+                className="canva-whatsapp-icon"
+                onClick={handleWhatsAppClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="#25D366">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                </svg>
+              </motion.button>
             </div>
-          </FadeInUp>
-
-          <FadeInUp delay={0.6}>
-            <motion.button 
-              onClick={handleEmailClick} 
-              className="btn btn-primary btn-large btn-quantum neon-glow gpu-accelerated"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: '0 15px 35px rgba(44, 62, 80, 0.2)'
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Mail size={20} />
-              Me contacter
-            </motion.button>
-          </FadeInUp>
+          </motion.div>
         </div>
-      </section>
-
-      {/* Section Services avec animations en cascade */}
-      <section id="services" className="section">
-        <div className="container">
-          <FadeInUp>
-            <h2 className="text-center mb-5">Mes Services Administratifs</h2>
-          </FadeInUp>
-          
-          <div className="services-grid">
-            <ServiceCard
-              icon={FileText}
-              title="Aide Administrative Complète"
-              description="Je vous accompagne dans toutes vos démarches administratives pour vous faire gagner du temps et éviter les erreurs."
-              features={[
-                "Carte grise et dossiers ANTS",
-                "Courriers officiels et formulaires",
-                "CV et lettres de motivation personnalisés",
-                "Recherche d'assurances et offres en ligne",
-                "Ouvert à d'autres demandes selon vos besoins"
-              ]}
-              delay={0.2}
-            />
-          </div>
-
-          {/* Section des avantages */}
-          <FadeInUp delay={0.4}>
-            <div className="benefits-section">
-              <h3 className="benefits-title">Pourquoi me choisir ?</h3>
-              <div className="benefits-grid">
-                {[
-                  { icon: Shield, title: "Fiabilité", desc: "Service sérieux et transparent" },
-                  { icon: Clock, title: "Rapidité", desc: "Réponse sous 24h garantie" },
-                  { icon: Users, title: "Personnalisé", desc: "Solutions adaptées à vos besoins" },
-                  { icon: Star, title: "Qualité", desc: "Travail soigné et professionnel" }
-                ].map((benefit, index) => (
-                  <motion.div
-                    key={benefit.title}
-                    className="benefit-card"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                  >
-                    <benefit.icon className="benefit-icon" size={32} />
-                    <h4>{benefit.title}</h4>
-                    <p>{benefit.desc}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </FadeInUp>
-        </div>
-      </section>
-
-      {/* Section À propos avec effet de révélation */}
-      <section id="apropos" className="section section-alt">
-        <div className="container">
-          <FadeInUp>
-            <h2 className="text-center mb-4">À propos</h2>
-          </FadeInUp>
-          
-          <div className="about-content">
-            <FadeInUp delay={0.2}>
-              <p className="text-large mb-4">
-                Je suis Saleh, passionné par l'aide aux autres et l'amélioration continue. Mon approche se base sur l'écoute, la précision et la recherche de solutions pratiques adaptées à chaque situation.
-              </p>
-            </FadeInUp>
-            
-            <FadeInUp delay={0.4}>
-              <p className="text-large mb-4">
-                Fort de mon expérience dans le domaine administratif et automobile, je mets mes compétences au service des particuliers pour simplifier leurs démarches quotidiennes.
-              </p>
-            </FadeInUp>
-            
-            <FadeInUp delay={0.6}>
-              <p className="text-large mb-0">
-                Mon objectif : vous faire gagner du temps tout en vous garantissant un travail de qualité, réalisé avec sérieux et transparence.
-              </p>
-            </FadeInUp>
-          </div>
-        </div>
-      </section>
-
-      {/* Section Contact avec animations interactives */}
-      <section id="contact" className="section">
-        <div className="container">
-          <FadeInUp>
-            <h2 className="text-center mb-5">Contactez-moi</h2>
-          </FadeInUp>
-          
-          <div className="contact-grid">
-            <ContactCard
-              icon={Mail}
-              title="Email"
-              info="salehateikk@gmail.com"
-              subtitle="Réponse sous 24h"
-              onClick={handleEmailClick}
-              delay={0.1}
-            />
-            
-            <ContactCard
-              icon={MessageCircle}
-              title="WhatsApp"
-              info="+33 6 02 27 71 81"
-              subtitle="Réponse rapide"
-              onClick={handleWhatsAppClick}
-              delay={0.2}
-            />
-
-            <ContactCard
-              icon={Linkedin}
-              title="LinkedIn"
-              info="Saleh Ateik"
-              subtitle="Profil professionnel"
-              onClick={handleLinkedInClick}
-              delay={0.3}
-            />
-          </div>
-          
-          <FadeInUp delay={0.5}>
-            <div className="text-center mt-5">
-              <p className="text-large text-muted">
-                N'hésitez pas à me contacter pour discuter de vos besoins. Je suis là pour vous aider !
-              </p>
-            </div>
-          </FadeInUp>
-        </div>
-      </section>
-
-      {/* Footer avec animation */}
-      <motion.footer 
-        className="footer"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="container">
-          <p>&copy; 2024 DocProJura - Saleh Ateik. Tous droits réservés.</p>
-        </div>
-      </motion.footer>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
 
