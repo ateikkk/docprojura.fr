@@ -96,12 +96,12 @@ body {
 /* Icônes sur l'iPad - Position exacte */
 .canva-ipad-icons {
   position: absolute;
-  top: 42%;
-  right: 18%;
+  top: 40%; /* Ajusté */
+  right: 17%; /* Ajusté */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem; /* Ajusté */
   z-index: 3;
 }
 
