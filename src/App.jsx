@@ -398,16 +398,8 @@ function App() {
         <div className="container">
           <motion.div style={{ y: y1 }}>
             <FadeInUp>
-              <h1 className="hero-title holographic-text" data-text="Je suis Saleh. J'aime évoluer, partager et rendre service.">
-                Je suis Saleh. J'aime évoluer, partager et rendre service. 
-                <motion.span
-                  className="hero-highlight"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 1 }}
-                >
-                  Bienvenue sur mon espace.
-                </motion.span>
+              <h1 className="hero-title holographic-text" data-text="Besoin d'aide ? Je rends les choses simples et efficaces !">
+                Besoin d'aide ? Je rends les choses simples et efficaces !
               </h1>
             </FadeInUp>
           </motion.div>
@@ -415,7 +407,7 @@ function App() {
           <motion.div style={{ y: y2 }}>
             <FadeInUp delay={0.2}>
               <p className="hero-subtitle">
-                Ce site, c'est ma façon de me faire connaître, de proposer mes services et d'apprendre des besoins des autres. Mon objectif est simple : progresser chaque jour tout en aidant les gens autour de moi, que ce soit dans l'automobile, l'administratif, la recherche de solutions pratiques (CV, lettres de motivation, assurances, offres en ligne, etc.) — et je reste ouvert à d'autres demandes.
+                Je m'appelle Saleh. J'aime apprendre, évoluer et partager. Que ce soit pour vos démarches, vos projets ou vos questions pratiques, je suis là pour vous accompagner en toute simplicité.
               </p>
             </FadeInUp>
           </motion.div>
@@ -429,8 +421,8 @@ function App() {
                 transition={{ duration: 0.3 }}
               >
                 <img 
-                  src="/src/assets/H97gqeWRJ2kJ.jpg" 
-                  alt="Bureau professionnel moderne"
+                  src="/src/assets/saleh_canva_image.png" 
+                  alt="Saleh - Votre assistant personnel"
                   className="hero-image"
                 />
                 <motion.button
