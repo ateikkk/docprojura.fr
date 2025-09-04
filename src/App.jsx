@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button.jsx'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
-import { Mail, MessageCircle, FileText, Linkedin, CheckCircle } from 'lucide-react'
-import adminImage from './assets/ipad_with_illustration.png'
+import React from 'react'
+import { Mail, MessageCircle, Linkedin, CheckCircle, FileText, Phone, MapPin } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -18,141 +16,137 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header/Navigation */}
-      <header className="bg-primary text-primary-foreground py-4 px-6 shadow-lg">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">DocProJura</h1>
-          <nav className="hidden md:flex space-x-6">
-            <a href="#accueil" className="hover:text-accent-foreground transition-colors">Accueil</a>
-            <a href="#services" className="hover:text-accent-foreground transition-colors">Services</a>
-            <a href="#apropos" className="hover:text-accent-foreground transition-colors">À propos</a>
-            <a href="#contact" className="hover:text-accent-foreground transition-colors">Contact</a>
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="header">
+        <div className="container header-content">
+          <a href="#accueil" className="logo">DocProJura</a>
+          <nav className="nav">
+            <a href="#accueil" className="nav-link">Accueil</a>
+            <a href="#services" className="nav-link">Services</a>
+            <a href="#apropos" className="nav-link">À propos</a>
+            <a href="#contact" className="nav-link">Contact</a>
           </nav>
         </div>
       </header>
 
-      {/* Section Accueil */}
-      <section id="accueil" className="py-20 px-6 bg-gradient-to-br from-primary/5 to-accent/5">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-primary mb-6">
-            Je suis Saleh. J’aime évoluer, partager et rendre service. Bienvenue sur mon espace.
+      {/* Hero Section */}
+      <section id="accueil" className="hero">
+        <div className="container">
+          <h1 className="hero-title animate-fade-in-up">
+            Je suis Saleh. J'aime évoluer, partager et rendre service. Bienvenue sur mon espace.
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Ce site, c’est ma façon de me faire connaître, de proposer mes services et d’apprendre des besoins des autres. Mon objectif est simple : progresser chaque jour tout en aidant les gens autour de moi, que ce soit dans l’automobile, l’administratif, la recherche de solutions pratiques (CV, lettres de motivation, assurances, offres en ligne, etc.) — et je reste ouvert à d’autres demandes.
+          <p className="hero-subtitle animate-fade-in-up">
+            Ce site, c'est ma façon de me faire connaître, de proposer mes services et d'apprendre des besoins des autres. Mon objectif est simple : progresser chaque jour tout en aidant les gens autour de moi, que ce soit dans l'automobile, l'administratif, la recherche de solutions pratiques (CV, lettres de motivation, assurances, offres en ligne, etc.) — et je reste ouvert à d'autres demandes.
           </p>
-          <div className="relative mb-8">
-            <img 
-              src={adminImage} 
-              alt="Saleh avec iPad" 
-              className="w-full max-w-md mx-auto rounded-lg shadow-lg cursor-pointer" 
-              onClick={() => window.location.href = '#contact'}
-            />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500 text-4xl font-bold pointer-events-none">
-              Contactez
-            </div>
+          <div className="animate-fade-in-up">
+            <button onClick={handleEmailClick} className="btn btn-primary btn-large">
+              <Mail size={20} />
+              Me contacter
+            </button>
           </div>
-
         </div>
       </section>
 
-      {/* Section Services */}
-      <section id="services" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12">
-            Mes Services Administratifs
-          </h2>
-          <div className="grid md:grid-cols-1 gap-8 justify-center">
-            {/* Aide Administrative */}
-            <Card className="hover:shadow-lg transition-shadow max-w-2xl mx-auto">
-              <CardHeader>
-                <div className="flex items-center mb-4">
-                  <FileText className="h-8 w-8 text-primary mr-3" />
-                  <CardTitle className="text-2xl text-primary">Aide Administrative</CardTitle>
-                </div>
-                <CardDescription>
-                  <img 
-                    src={adminImage} 
-                    alt="Aide administrative" 
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                    <span>Carte grise, dossiers ANTS</span>
+      {/* Services Section */}
+      <section id="services" className="section">
+        <div className="container">
+          <h2 className="text-center mb-5">Mes Services Administratifs</h2>
+          <div className="grid grid-1" style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <div className="card">
+              <div className="card-header">
+                <FileText className="card-icon" />
+                <h3 className="card-title">Aide Administrative Complète</h3>
+              </div>
+              <div className="card-content">
+                <p className="mb-3">
+                  Je vous accompagne dans toutes vos démarches administratives pour vous faire gagner du temps et éviter les erreurs.
+                </p>
+                <ul className="service-list">
+                  <li className="service-item">
+                    <CheckCircle className="service-icon" />
+                    <span>Carte grise et dossiers ANTS</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                    <span>Courriers et formulaires</span>
+                  <li className="service-item">
+                    <CheckCircle className="service-icon" />
+                    <span>Courriers officiels et formulaires</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                    <span>CV et lettres de motivation</span>
+                  <li className="service-item">
+                    <CheckCircle className="service-icon" />
+                    <span>CV et lettres de motivation personnalisés</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                    <span>Ouvert à d'autres demandes administratives</span>
+                  <li className="service-item">
+                    <CheckCircle className="service-icon" />
+                    <span>Recherche d'assurances et offres en ligne</span>
+                  </li>
+                  <li className="service-item">
+                    <CheckCircle className="service-icon" />
+                    <span>Ouvert à d'autres demandes selon vos besoins</span>
                   </li>
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section À propos */}
-      <section id="apropos" className="py-20 px-6 bg-secondary/50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-8">
-            À propos
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Je suis Saleh 😁. J’aide les particuliers à simplifier leurs démarches administratives 📝 : carte grise, dossiers ANTS, courriers, CV et lettres de motivation. Mon objectif est de vous faire gagner du temps ⏱️ et d’éviter les erreurs. Je reste également ouvert à d’autres demandes selon vos besoins 😉.
-          </p>
+      {/* About Section */}
+      <section id="apropos" className="section section-alt">
+        <div className="container">
+          <h2 className="text-center mb-4">À propos</h2>
+          <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+            <p className="text-large mb-4">
+              Je suis Saleh, passionné par l'aide aux autres et l'amélioration continue. Mon approche se base sur l'écoute, la précision et la recherche de solutions pratiques adaptées à chaque situation.
+            </p>
+            <p className="text-large mb-4">
+              Fort de mon expérience dans le domaine administratif et automobile, je mets mes compétences au service des particuliers pour simplifier leurs démarches quotidiennes.
+            </p>
+            <p className="text-large mb-0">
+              Mon objectif : vous faire gagner du temps tout en vous garantissant un travail de qualité, réalisé avec sérieux et transparence.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Section Contact */}
-      <section id="contact" className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-12">
-            Contact
-          </h2>
-          <div className="grid sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleEmailClick}>
-              <CardContent className="p-8 text-center">
-                <Mail className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Email</h3>
-                <p className="text-muted-foreground">salehateikk@gmail.com</p>
-              </CardContent>
-            </Card>
+      {/* Contact Section */}
+      <section id="contact" className="section">
+        <div className="container">
+          <h2 className="text-center mb-5">Contactez-moi</h2>
+          <div className="contact-grid">
+            <div className="card contact-card" onClick={handleEmailClick}>
+              <Mail className="contact-icon" />
+              <h3 className="contact-title">Email</h3>
+              <p className="contact-info">salehateikk@gmail.com</p>
+              <p className="text-muted mt-2">Réponse sous 24h</p>
+            </div>
             
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleWhatsAppClick}>
-              <CardContent className="p-8 text-center">
-                <MessageCircle className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">WhatsApp</h3>
-                <p className="text-muted-foreground">+33 6 02 27 71 81</p>
-              </CardContent>
-            </Card>
+            <div className="card contact-card" onClick={handleWhatsAppClick}>
+              <MessageCircle className="contact-icon" />
+              <h3 className="contact-title">WhatsApp</h3>
+              <p className="contact-info">+33 6 02 27 71 81</p>
+              <p className="text-muted mt-2">Réponse rapide</p>
+            </div>
 
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleLinkedInClick}>
-              <CardContent className="p-8 text-center">
-                <Linkedin className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2">LinkedIn</h3>
-                <p className="text-muted-foreground">Saleh Ateik</p>
-              </CardContent>
-            </Card>
+            <div className="card contact-card" onClick={handleLinkedInClick}>
+              <Linkedin className="contact-icon" />
+              <h3 className="contact-title">LinkedIn</h3>
+              <p className="contact-info">Saleh Ateik</p>
+              <p className="text-muted mt-2">Profil professionnel</p>
+            </div>
+          </div>
+          
+          <div className="text-center mt-5">
+            <p className="text-large text-muted">
+              N'hésitez pas à me contacter pour discuter de vos besoins. Je suis là pour vous aider !
+            </p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-primary-foreground py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <p>&copy; 2024 DocProJura. Tous droits réservés.</p>
+      <footer className="footer">
+        <div className="container">
+          <p>&copy; 2024 DocProJura - Saleh Ateik. Tous droits réservés.</p>
         </div>
       </footer>
     </div>
